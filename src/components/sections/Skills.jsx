@@ -1,10 +1,21 @@
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { orbitTech, skillGroups } from "../../data/portfolio.js";
 import Reveal from "../ui/Reveal.jsx";
 import SectionHeading from "../ui/SectionHeading.jsx";
 import TiltCard from "../ui/TiltCard.jsx";
 
 function TechOrbit() {
+  const [animateOrbit, setAnimateOrbit] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia("(min-width: 900px) and (pointer: fine)");
+    const update = () => setAnimateOrbit(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
+
   return (
     <div className="skill-orbit relative mx-auto grid aspect-square w-full max-w-[430px] place-items-center rounded-full border">
       <div className="absolute inset-10 rounded-full border border-cyan-200/20" />
@@ -19,8 +30,8 @@ function TechOrbit() {
             key={tech}
             className="skill-orbit-pill absolute rounded-full border px-3 py-1.5 text-xs font-semibold backdrop-blur"
             style={{ left: `${50 + x}%`, top: `${50 + y}%`, transform: "translate(-50%, -50%)" }}
-            animate={{ y: [0, -8, 0] }}
-            transition={{ duration: 3 + index * 0.12, repeat: Infinity, ease: "easeInOut" }}
+            animate={animateOrbit ? { y: [0, -8, 0] } : undefined}
+            transition={animateOrbit ? { duration: 3 + index * 0.12, repeat: Infinity, ease: "easeInOut" } : undefined}
           >
             {tech}
           </motion.span>

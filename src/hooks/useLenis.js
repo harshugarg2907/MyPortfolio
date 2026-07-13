@@ -7,6 +7,8 @@ export default function useLenis() {
 
   useEffect(() => {
     if (reducedMotion) return undefined;
+    const mobileOrTouch = window.matchMedia("(max-width: 768px), (pointer: coarse)").matches;
+    if (mobileOrTouch) return undefined;
 
     const lenis = new Lenis({
       lerp: 0.18,

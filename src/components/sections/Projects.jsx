@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Bot, Building2, Calculator, ExternalLink, FileText, Image, Link2, PieChart, WalletCards } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import { projects } from "../../data/portfolio.js";
@@ -96,8 +97,17 @@ export default function Projects() {
 function ProjectPreview({ project }) {
   const preview = previewMap[project.name] || previewMap.EveryTools;
   const Icon = preview.icon;
+  const [allowLivePreview, setAllowLivePreview] = useState(false);
 
-  if (project.liveUrl) {
+  useEffect(() => {
+    const media = window.matchMedia("(min-width: 900px) and (pointer: fine)");
+    const update = () => setAllowLivePreview(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
+
+  if (project.liveUrl && allowLivePreview) {
     return (
       <a
         className="project-preview relative mb-6 block h-44 overflow-hidden rounded-[24px] border"

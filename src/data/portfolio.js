@@ -25,8 +25,8 @@ export const profile = {
   profileImage: "/profile-sticker.png",
   availability: "Available for high-impact product teams",
   socials: [
-    { label: "GitHub", href: "https://github.com/", icon: FaGithub },
-    { label: "LinkedIn", href: "https://www.linkedin.com/", icon: FaLinkedinIn },
+    { label: "GitHub", href: "https://github.com/harshugarg2907/", icon: FaGithub },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/harsh-kumar-garg-1805ab247/", icon: FaLinkedinIn },
   ],
 };
 

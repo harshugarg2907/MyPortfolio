@@ -515,13 +515,41 @@ a {
 
 @media (max-width: 768px) {
   .glass {
-    backdrop-filter: blur(12px);
+    background: rgba(8, 13, 28, 0.72);
+    backdrop-filter: none;
+  }
+
+  :root[data-theme="light"] .glass {
+    background: rgba(255, 255, 255, 0.82);
   }
 
   .section-shell {
     width: min(100% - 24px, 1180px);
     scroll-margin-top: 96px;
     padding-block: 5rem 4rem;
+  }
+
+  .grid-field {
+    animation: none;
+    opacity: 0.22;
+  }
+
+  .gradient-border::before {
+    opacity: 0.55;
+  }
+
+  .light-sweep::after {
+    display: none;
+  }
+
+  .project-preview iframe {
+    display: none;
+  }
+
+  .profile-frame,
+  .soft-surface,
+  .identity-card-panel {
+    backdrop-filter: none;
   }
 }
 
