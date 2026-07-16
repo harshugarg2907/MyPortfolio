@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Bot, Building2, Calculator, ExternalLink, FileText, Image, Link2, PieChart, WalletCards } from "lucide-react";
+import { Bot, Building2, Calculator, ExternalLink, FileText, Globe2, Image, Link2, LockKeyhole, MoreHorizontal, PieChart, RefreshCw, WalletCards } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import { projects } from "../../data/portfolio.js";
 import GlowButton from "../ui/GlowButton.jsx";
@@ -82,9 +82,15 @@ export default function Projects() {
                 ) : (
                   <GlowButton disabled icon={ExternalLink}>Live unavailable</GlowButton>
                 )}
-                <GlowButton variant="secondary" disabled icon={FaGithub}>
-                  Repo pending
-                </GlowButton>
+                {project.repoUrl ? (
+                  <GlowButton href={project.repoUrl} target="_blank" rel="noreferrer" variant="secondary" icon={FaGithub}>
+                    GitHub
+                  </GlowButton>
+                ) : (
+                  <GlowButton variant="secondary" disabled icon={FaGithub}>
+                    Repo pending
+                  </GlowButton>
+                )}
               </div>
             </TiltCard>
           </Reveal>
@@ -108,32 +114,48 @@ function ProjectPreview({ project }) {
   }, []);
 
   if (project.liveUrl && allowLivePreview) {
+    const hostname = new URL(project.liveUrl).hostname.replace("www.", "");
+
     return (
       <a
-        className="project-preview relative mb-6 block h-44 overflow-hidden rounded-[24px] border"
+        className="project-preview project-live-preview relative mb-6 block h-56 overflow-hidden rounded-[24px] border"
         href={project.liveUrl}
         target="_blank"
         rel="noreferrer"
         aria-label={`Open live preview of ${project.name}`}
       >
-        <div className="absolute left-4 right-4 top-4 z-10 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="size-2 rounded-full bg-rose-300/90" />
-            <span className="size-2 rounded-full bg-amber-300/90" />
-            <span className="size-2 rounded-full bg-emerald-300/90" />
+        <div className="browser-toolbar absolute inset-x-0 top-0 z-20 flex h-12 items-center gap-3 border-b px-4">
+          <div className="flex shrink-0 items-center gap-1.5" aria-hidden="true">
+            <span className="size-2.5 rounded-full bg-[#ff5f57] shadow-[0_0_10px_rgba(255,95,87,0.35)]" />
+            <span className="size-2.5 rounded-full bg-[#febc2e] shadow-[0_0_10px_rgba(254,188,46,0.3)]" />
+            <span className="size-2.5 rounded-full bg-[#28c840] shadow-[0_0_10px_rgba(40,200,64,0.3)]" />
           </div>
-          <span className="live-preview-badge rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] backdrop-blur">
-            Live site
+          <RefreshCw className="browser-toolbar-icon hidden shrink-0 sm:block" aria-hidden="true" size={13} />
+          <div className="browser-address flex min-w-0 flex-1 items-center justify-center gap-2 rounded-lg border px-3 py-1.5">
+            <LockKeyhole className="shrink-0 text-emerald-400" aria-hidden="true" size={11} />
+            <span className="truncate text-[10px] font-medium tracking-wide">{hostname}</span>
+          </div>
+          <span className="live-preview-badge hidden items-center gap-1.5 rounded-full border px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.16em] backdrop-blur sm:inline-flex">
+            <span className="size-1.5 animate-pulse rounded-full bg-emerald-400" /> Live
+          </span>
+          <MoreHorizontal className="browser-toolbar-icon shrink-0" aria-hidden="true" size={15} />
+        </div>
+        <div className="browser-viewport absolute inset-x-0 bottom-0 top-12 overflow-hidden">
+          <iframe
+            className="pointer-events-none absolute left-1/2 top-0 h-[720px] w-[1280px] origin-top -translate-x-1/2 scale-[0.36] border-0 bg-white"
+            src={project.liveUrl}
+            title={`${project.name} live website preview`}
+            loading="lazy"
+            sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+          />
+          <div className="browser-reflection pointer-events-none absolute inset-0" />
+        </div>
+        <div className="project-live-hover pointer-events-none absolute inset-0 z-30 grid place-items-center opacity-0 transition duration-300">
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-slate-950/75 px-4 py-2 text-xs font-semibold text-white shadow-2xl backdrop-blur-xl">
+            <Globe2 aria-hidden="true" size={14} /> Open live site <ExternalLink aria-hidden="true" size={13} />
           </span>
         </div>
-        <iframe
-          className="pointer-events-none absolute left-1/2 top-1/2 h-[720px] w-[1280px] origin-center -translate-x-1/2 -translate-y-1/2 scale-[0.16] border-0 bg-white md:scale-[0.19]"
-          src={project.liveUrl}
-          title={`${project.name} live website preview`}
-          loading="lazy"
-          sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
-        />
-        <div className="pointer-events-none absolute inset-0 rounded-[24px] ring-1 ring-inset ring-white/10" />
+        <div className="pointer-events-none absolute inset-0 z-40 rounded-[24px] ring-1 ring-inset ring-white/10" />
       </a>
     );
   }

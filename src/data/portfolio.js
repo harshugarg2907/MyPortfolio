@@ -111,6 +111,7 @@ export const projects = [
     description: "A modern productivity platform containing PDF, image, text, calculator, and AI-powered tools.",
     tech: ["Next.js", "React", "Tailwind CSS", "Gemini AI"],
     liveUrl: "https://every-tools.vercel.app",
+    repoUrl: "https://github.com/harshugarg2907/EveryTools",
     accent: "cyan",
   },
   
@@ -119,6 +120,7 @@ export const projects = [
     description: "An AI-powered web application that extracts and summarizes information from webpage links.",
     tech: ["Next.js", "AI", "Tailwind CSS"],
     liveUrl: "https://link-sage-seven.vercel.app",
+    repoUrl: "https://github.com/harshugarg2907/LinkSage",
     accent: "blue",
   },
   {
@@ -126,6 +128,7 @@ export const projects = [
     description: "A personal finance application for budgets, transactions, analytics, and spending insights.",
     tech: ["Next.js", "MongoDB", "Recharts"],
     liveUrl: "https://finance-tracker-eta-six.vercel.app/",
+    repoUrl: "https://github.com/harshugarg2907/finance_tracker",
     accent: "violet",
   },
   {
