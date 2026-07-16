@@ -1,9 +1,70 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { Braces, ChartNoAxesCombined, Database, Network, Workflow } from "lucide-react";
+import { FaAws, FaMicrosoft } from "react-icons/fa";
+import {
+  SiCplusplus,
+  SiCss,
+  SiDotnet,
+  SiExpress,
+  SiGit,
+  SiGithub,
+  SiGooglegemini,
+  SiHtml5,
+  SiJavascript,
+  SiMongodb,
+  SiNextdotjs,
+  SiNodedotjs,
+  SiReact,
+  SiSap,
+  SiTailwindcss,
+} from "react-icons/si";
 import { orbitTech, skillGroups } from "../../data/portfolio.js";
 import Reveal from "../ui/Reveal.jsx";
 import SectionHeading from "../ui/SectionHeading.jsx";
 import TiltCard from "../ui/TiltCard.jsx";
+
+const skillIcons = {
+  React: SiReact,
+  "Next.js": SiNextdotjs,
+  JavaScript: SiJavascript,
+  HTML: SiHtml5,
+  CSS: SiCss,
+  "Tailwind CSS": SiTailwindcss,
+  "C++": SiCplusplus,
+  "ASP.NET": SiDotnet,
+  "VB.NET": FaMicrosoft,
+  "Node.js": SiNodedotjs,
+  "Express.js": SiExpress,
+  "REST APIs": Network,
+  Git: SiGit,
+  GitHub: SiGithub,
+  MongoDB: SiMongodb,
+  SQL: Database,
+  "SQL Server": FaMicrosoft,
+  "Data modeling": Braces,
+  Analytics: ChartNoAxesCombined,
+  AWS: FaAws,
+  "Oracle VBCS": Workflow,
+  "Oracle OIC": Workflow,
+  "Fusion HCM": Workflow,
+  "SAP UX": SiSap,
+  "AI integrations": Braces,
+  "RAG systems": Network,
+  "Gemini AI": SiGooglegemini,
+  "Vector search": Database,
+};
+
+function SkillChip({ skill }) {
+  const Icon = skillIcons[skill] ?? Braces;
+
+  return (
+    <span className="skill-chip group inline-flex items-center gap-2 rounded-full border px-3 py-2 text-xs font-medium transition duration-300 hover:-translate-y-0.5">
+      <Icon aria-hidden="true" className="skill-chip-icon size-4 shrink-0 transition-transform duration-300 group-hover:scale-110" />
+      {skill}
+    </span>
+  );
+}
 
 function TechOrbit() {
   const [animateOrbit, setAnimateOrbit] = useState(false);
@@ -66,11 +127,7 @@ export default function Skills() {
                     <h3 id={index === 0 ? "skills-title" : undefined} className="text-lg font-semibold text-white">{group.name}</h3>
                   </div>
                   <div className="mt-5 flex flex-wrap gap-2">
-                    {group.skills.map((skill) => (
-                      <span key={skill} className="skill-chip rounded-full border px-3 py-1.5 text-xs">
-                        {skill}
-                      </span>
-                    ))}
+                    {group.skills.map((skill) => <SkillChip key={skill} skill={skill} />)}
                   </div>
                 </TiltCard>
               </Reveal>

@@ -68,9 +68,9 @@ export const focusAreas = [
 
 export const skillGroups = [
   { name: "Frontend", icon: Code2, skills: ["React", "Next.js", "JavaScript", "HTML", "CSS", "Tailwind CSS"] },
-  { name: "Backend", icon: TerminalSquare, skills: ["Node.js", "Express.js", "REST APIs", "Git", "GitHub"] },
-  { name: "Database", icon: Database, skills: ["MongoDB", "SQL", "Data modeling", "Analytics"] },
-  { name: "Cloud & Enterprise", icon: Cloud, skills: [ "AWS", "Fusion HCM", "SAP UX"] },
+  { name: "Languages & Backend", icon: TerminalSquare, skills: ["C++", "ASP.NET", "VB.NET", "Node.js", "Express.js", "REST APIs", "Git", "GitHub"] },
+  { name: "Database", icon: Database, skills: ["MongoDB", "SQL", "SQL Server", "Data modeling", "Analytics"] },
+  { name: "Cloud & Enterprise", icon: Cloud, skills: ["AWS", "Oracle VBCS", "Oracle OIC", "Fusion HCM", "SAP UX"] },
   { name: "AI & Tools", icon: Sparkles, skills: ["AI integrations", "RAG systems", "Gemini AI", "Vector search"] },
 ];
 
@@ -80,7 +80,9 @@ export const experiences = [
   {
     company: "IBM",
     role: "Application Developer",
-    duration: "2025 - Present",
+    duration: "Apr 2026 - Present",
+    startDate: "2026-04-01",
+    endDate: null,
     summary: "Working on enterprise application development after technical training and certification.",
     impact: [
       "Builds maintainable application features for enterprise delivery environments.",
@@ -91,7 +93,9 @@ export const experiences = [
   {
     company: "KIS IT Services Pvt. Ltd.",
     role: "Software Developer Intern",
-    duration: "Internship",
+    duration: "Jan 2025 - May 2025",
+    startDate: "2025-01-01",
+    endDate: "2025-05-31",
     summary: "Developed web and desktop applications using ASP.NET, VB.NET, SQL Server, and related technologies.",
     impact: [
       "Delivered data-backed application screens and business workflows.",

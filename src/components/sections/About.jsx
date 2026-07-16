@@ -1,9 +1,24 @@
-import { focusAreas, stats } from "../../data/portfolio.js";
+import { BriefcaseBusiness, CalendarDays, TrendingUp } from "lucide-react";
+import { experiences, focusAreas, stats } from "../../data/portfolio.js";
 import GlassCard from "../ui/GlassCard.jsx";
 import Reveal from "../ui/Reveal.jsx";
 import SectionHeading from "../ui/SectionHeading.jsx";
 
+const MS_PER_YEAR = 1000 * 60 * 60 * 24 * 365.2425;
+
+function calculateTotalExperience(items, today = new Date()) {
+  const milliseconds = items.reduce((total, item) => {
+    const start = new Date(`${item.startDate}T00:00:00`);
+    const end = item.endDate ? new Date(`${item.endDate}T23:59:59`) : today;
+    return total + Math.max(0, end - start);
+  }, 0);
+
+  return (milliseconds / MS_PER_YEAR).toFixed(1);
+}
+
 export default function About() {
+  const totalExperience = calculateTotalExperience(experiences);
+
   return (
     <section id="about" className="section-shell" aria-labelledby="about-title">
       <SectionHeading
@@ -32,6 +47,30 @@ export default function About() {
           ))}
         </Reveal>
       </div>
+      <Reveal delay={0.1} className="mt-4">
+        <GlassCard className="experience-summary relative overflow-hidden p-6 md:p-8">
+          <div className="relative z-10 grid items-center gap-6 md:grid-cols-[auto_1fr_auto]">
+            <span className="experience-summary-icon grid size-14 place-items-center rounded-2xl">
+              <BriefcaseBusiness aria-hidden="true" size={25} />
+            </span>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-200">Total experience</p>
+              <h3 className="mt-2 text-2xl font-semibold text-white">Professional engineering journey</h3>
+              <p className="mt-2 flex items-center gap-2 text-sm text-slate-400">
+                <CalendarDays aria-hidden="true" size={15} />
+                Calculated live from all employment periods
+              </p>
+            </div>
+            <div className="experience-summary-value min-w-40 rounded-3xl border px-6 py-5 text-center">
+              <p className="flex items-center justify-center gap-2 text-4xl font-black text-white">
+                {totalExperience}
+                <TrendingUp className="text-cyan-200" aria-hidden="true" size={22} />
+              </p>
+              <p className="mt-1 text-xs font-medium uppercase tracking-[0.2em] text-slate-400">Years</p>
+            </div>
+          </div>
+        </GlassCard>
+      </Reveal>
       <div className="mt-4 grid gap-4 md:grid-cols-3">
         {focusAreas.map((area, index) => {
           const Icon = area.icon;
